@@ -1,20 +1,8 @@
 # PSA Tasklist Generator
 
-A desktop application for generating PSA tasklists with customizable parameters and Excel export functionality.
-
 ## Overview
 
 PSA Tasklist Generator is a Tauri-based application that helps generate structured tasklists for integration projects. The app allows you to input project details, adjust task percentages, and export professional Excel spreadsheets with formatted tasklists for both Assessment and Development phases.
-
-## Features
-
-- **Dynamic Form Inputs**: Enter client name, integration details, ERP system, directionality, and total hours
-- **Customizable Task Percentages**: Adjust percentage allocations for assessment and development tasks
-- **Flexible Hour Distribution**: Choose between Assessment-only, Development-only, or Both (30/70 split)
-- **Live Preview**: See your tasklist update in real-time as you modify inputs
-- **Excel Export**: Export tasklists to Excel with professional formatting, bold headers, and structured layout
-- **Template-Based**: Uses JSON templates for task definitions that can be customized
-- **Native Performance**: Built with Tauri (Rust + React) for fast, lightweight desktop performance
 
 ## Tech Stack
 
