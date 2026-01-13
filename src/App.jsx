@@ -51,7 +51,7 @@ function PercentForm({ templateData, setTemplateData }) {
         <tbody>
           {assessmentPcts.map((item, index) => (
             <tr key={index}>
-              <td>{item.role}</td>
+              <td align="left">{item.role} - {item.milestone}</td>
               <td>
                 <input
                   type="number"
@@ -86,7 +86,7 @@ function PercentForm({ templateData, setTemplateData }) {
         <tbody>
           {developmentPcts.map((item, index) => (
             <tr key={index}>
-              <td>{item.role}</td>
+              <td align="left">{item.role} - {item.milestone}</td>
               <td>
                 <input
                   type="number"
@@ -145,27 +145,27 @@ function DataInputForm({
         <tbody>
           <tr>
             {/* Client Name Input */}
-            <td>Client Name</td>
+            <td align="left">Client Name</td>
             <td><input type="text" name="clientName" value={clientName} onChange={(e) => setClientName(e.target.value)} /></td>
           </tr>
           <tr>
             {/* Integration Number Input */}
-            <td>Integration Number</td>
+            <td align="left">Integration Number</td>
             <td><input type="text" name="intgNumber" value={intgNumber} onChange={(e) => setIntgNumber(e.target.value)} /></td>
           </tr>
           <tr>
             {/* Integration Name Input */}
-            <td>Integration Name</td>
+            <td align="left">Integration Name</td>
             <td><input type="text" name="intgName" value={intgName} onChange={(e) => setIntgName(e.target.value)} /></td>
           </tr>
           <tr>
             {/* ERP System Input */}
-            <td>ERP System</td>
+            <td align="left">ERP System</td>
             <td><input type="text" name="erpSystem" value={erpSystem} onChange={(e) => setErpSystem(e.target.value)} /></td>
           </tr>
           <tr>
             {/* Directionality Dropdown */}
-            <td>Directionality</td>
+            <td align="left">Directionality</td>
             <td>
               <select value={directionality} onChange={(e) => setDirectionality(e.target.value)}>
                 <option>Inbound</option>
@@ -176,12 +176,12 @@ function DataInputForm({
           </tr>
           <tr>
             {/* Total Hours Input */}
-            <td>Total Hours</td>
+            <td align="left">Total Hours</td>
             <td><input type="number" name="totalHours" value={totalHours} onChange={(e) => setTotalHours(e.target.value)} /></td>
           </tr>
           <tr>
             {/* Hours Split Radio Buttons */}
-            <td>Hours Split</td>
+            <td align="left">Hours Split</td>
             <td align="left">
               <label>
                 <input type="radio" name="hoursSplit" value="Assessment" checked={hoursSplit === "Assessment"} onChange={(e) => setHoursSplit(e.target.value)} />
