@@ -1,6 +1,6 @@
 # PSA Tasklist Generator
 
-A desktop application for generating Professional Services Automation (PSA) tasklists with customizable parameters and Excel export functionality.
+A desktop application for generating PSA tasklists with customizable parameters and Excel export functionality.
 
 ## Overview
 
