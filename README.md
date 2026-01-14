@@ -15,7 +15,6 @@ PSA Tasklist Generator is a Tauri-based application that helps generate structur
 
 - [Node.js](https://nodejs.org/) (v16 or higher)
 - [Rust](https://www.rust-lang.org/) (latest stable)
-- [Tauri CLI](https://tauri.app/v1/guides/getting-started/prerequisites)
 
 ## Installation
 
