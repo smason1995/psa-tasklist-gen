@@ -513,10 +513,9 @@ function TasklistPreview({
             intgNumber === "" ||
             intgName === "" ||
             erpSystem === "" ||
-            totalHours <= 0 ||
-            (hoursSplit === "Assessment" && assessmentTotal != 1.00) ||
-            (hoursSplit === "Development" && developmentTotal != 1.00) ||
-            (hoursSplit === "Both" && (assessmentTotal != 1.00 || developmentTotal != 1.00))
+            (hoursSplit === "Assessment" && assessmentTotal != 1.00 && assessmentHours <= 0) ||
+            (hoursSplit === "Development" && developmentTotal != 1.00 && developmentHours <= 0) ||
+            (hoursSplit === "Both" && (assessmentTotal != 1.00 || developmentTotal != 1.00) && (assessmentHours <= 0 || developmentHours <= 0))
           }>
           Export to Excel
         </button>
