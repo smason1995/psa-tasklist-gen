@@ -59,7 +59,7 @@
             "region": "US-NA",
             "skills": "Integration Delivery using Ethos Extensibility-Integration Engineer",
             "assignment_tasks": "Ethos Development Services-<INSTITUTION NAME>-<INTG-NUMBER>-<ERP>-<Bidirectional or Uni>-Design-Technical Oversight Lead",
-            "hours_per_role_per_milestone": 0.15,
+            "hours_per_role_per_milestone": 0.05,
             "duration": "60 days"
         },
         {
@@ -71,7 +71,7 @@
             "region": "US-NA",
             "skills": "Integration Delivery using Ethos Extensibility-Integration Engineer",
             "assignment_tasks": "Ethos Development Services-<INSTITUTION NAME>-<INTG-NUMBER>-Extensibility Integrations Development Service-<ERP>-<Bidirectional or Uni>-Design-Technical Oversight Lead",
-            "hours_per_role_per_milestone": 0.15,
+            "hours_per_role_per_milestone": 0.05,
             "duration": "60 days"
         },
         {
@@ -83,7 +83,7 @@
             "region": "India",
             "skills": "Integration Delivery using Ethos Extensibility-Integration Engineer",
             "assignment_tasks": "Ethos Development Services-<INSTITUTION NAME>-<INTG-NUMBER>-<ERP>-<Bidirectional or Uni>-Build-QA",
-            "hours_per_role_per_milestone": 0.10,
+            "hours_per_role_per_milestone": 0.05,
             "duration": "60 days"
         },
         {
@@ -95,7 +95,7 @@
             "region": "India",
             "skills": "Integration Delivery using Ethos Extensibility-Integration Engineer",
             "assignment_tasks": "Ethos Development Services-<INSTITUTION NAME>-<INTG-NUMBER>-<ERP>-<Bidirectional or Uni>-Build-Technical",
-            "hours_per_role_per_milestone": 0.20,
+            "hours_per_role_per_milestone": 0.40,
             "duration": "60 days"
         },
         {
@@ -115,11 +115,35 @@
             "rr": "RR request number to be added by PM",
             "product_name": "Ethos Development Services-<INSTITUTION NAME>-<INTEGRATION NAME>-<INTG-NUMBER>-<ERP>",
             "role": "Integration Engineer-QA",
+            "milestone": "Build",
+            "region": "India",
+            "skills": "Integration Delivery using Ethos Extensibility-Integration Engineer",
+            "assignment_tasks": "Ethos Development Services-<INSTITUTION NAME>-<INTG-NUMBER>-<ERP>-<Bidirectional or Uni>-Validate-Test-Plan",
+            "hours_per_role_per_milestone": 0.02,
+            "duration": "60 days"
+        },
+        {
+            "section": "development",
+            "rr": "RR request number to be added by PM",
+            "product_name": "Ethos Development Services-<INSTITUTION NAME>-<INTEGRATION NAME>-<INTG-NUMBER>-<ERP>",
+            "role": "Integration Engineer-QA",
+            "milestone": "Build",
+            "region": "India",
+            "skills": "Integration Delivery using Ethos Extensibility-Integration Engineer",
+            "assignment_tasks": "Ethos Development Services-<INSTITUTION NAME>-<INTG-NUMBER>-<ERP>-<Bidirectional or Uni>-Validate-Test-Cases",
+            "hours_per_role_per_milestone": 0.08,
+            "duration": "60 days"
+        },
+        {
+            "section": "development",
+            "rr": "RR request number to be added by PM",
+            "product_name": "Ethos Development Services-<INSTITUTION NAME>-<INTEGRATION NAME>-<INTG-NUMBER>-<ERP>",
+            "role": "Integration Engineer-QA",
             "milestone": "Validate",
             "region": "India",
             "skills": "Integration Delivery using Ethos Extensibility-Integration Engineer",
             "assignment_tasks": "Ethos Development Services-<INSTITUTION NAME>-<INTG-NUMBER>-<ERP>-<Bidirectional or Uni>-Validate-Technical",
-            "hours_per_role_per_milestone": 0.10,
+            "hours_per_role_per_milestone": 0.20,
             "duration": "60 days"
         },
         {
@@ -131,7 +155,7 @@
             "region": "US-NA",
             "skills": "Integration Delivery using Ethos Extensibility-Integration Engineer",
             "assignment_tasks": "Ethos Development Services-<INSTITUTION NAME>-<INTG-NUMBER>-<ERP>-<Bidirectional or Uni>-Validate-Technical",
-            "hours_per_role_per_milestone": 0.5,
+            "hours_per_role_per_milestone": 0.05,
             "duration": "60 days"
         },
         {
@@ -143,7 +167,7 @@
             "region": "US-NA",
             "skills": "ERP Functional Consultant",
             "assignment_tasks": "Ethos Development Services-<INSTITUTION NAME>-<INTG-NUMBER>-Extensibility Integrations Development Service-<ERP>-<Bidirectional or Uni>-Validate-Functional Oversight Lead",
-            "hours_per_role_per_milestone": 0.15,
+            "hours_per_role_per_milestone": 0.05,
             "duration": "60 days"
         },
         {
@@ -155,7 +179,7 @@
             "region": "India",
             "skills": "Integration Delivery using Ethos Extensibility-Integration Engineer",
             "assignment_tasks": "Ethos Development Services-<INSTITUTION NAME>-<INTG-NUMBER>-<ERP>-<Bidirectional or Uni>-Build-Deploy-QA",
-            "hours_per_role_per_milestone": 0.10,
+            "hours_per_role_per_milestone": 0.05,
             "duration": "60 days"
         },
         {
