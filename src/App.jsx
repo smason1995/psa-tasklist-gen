@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { save } from '@tauri-apps/plugin-dialog';
 import "./App.css";
@@ -12,6 +12,8 @@ import "./App.css";
  * - setAssessmentTotal: Function to update the assessment total
  * - developmentTotal: Total percentage for development tasks
  * - setDevelopmentTotal: Function to update the development total
+ * - includePmHours: Boolean indicating whether to include project management hours
+ * - pmPct: Percentage for project management hours
  * 
  * @returns JSX.Element
  */
@@ -19,6 +21,7 @@ function PercentForm({
   templateData, setTemplateData,
   assessmentTotal, setAssessmentTotal,
   developmentTotal, setDevelopmentTotal,
+  includePmHours, pmPct, setPmPct,
   hoursSplit
 }) {
   const [assessmentPcts, setAssessmentPcts] = useState([]); // State for assessment percentages
@@ -93,9 +96,9 @@ function PercentForm({
           ))}
           <tr>
             {/* Total row */}
-            <td>Total</td>
+            <td><b>Total</b></td>
             <td>
-              {assessmentTotal}
+              <b>{`${assessmentTotal * 100}%`}</b>
             </td>
           </tr>
         </tbody>
@@ -130,9 +133,41 @@ function PercentForm({
           ))}
           <tr>
             {/* Total row */}
-            <td>Total</td>
+            <td><b>Total</b></td>
             <td>
-              {developmentTotal}
+              <b>{`${developmentTotal * 100}%`}</b>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    )
+  }
+
+  function generatePmPctInput() {
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td align="left">Project Management - Design</td>
+            <td>
+              <input
+                type="number"
+                name={`pmPct`}
+                value={pmPct}
+                onChange={(e) => setPmPct(parseFloat(e.target.value))}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><b>Total</b></td>
+            <td>
+              <b>{`${pmPct * 100}%`}</b>
             </td>
           </tr>
         </tbody>
@@ -152,6 +187,10 @@ function PercentForm({
         <h4>Development</h4>
         {generateDevelopmentForm()}
       </>}
+      {includePmHours && <>
+        <h4>Project Management</h4>
+        {generatePmPctInput()}
+      </>}
     </div>
   );
 }
@@ -168,6 +207,7 @@ function PercentForm({
  * - developmentHours, setDevelopmentHours: Development hours state and setter
  * - hoursSplit, setHoursSplit: Hours split state and setter
  * - erpConsultant, setErpConsultant: ERP consultant state and setter
+ * - includePmHours, setIncludePmHours: Include PM hours state and setter
  * 
  * @returns JSX.Element
  */
@@ -180,9 +220,9 @@ function DataInputForm({
   assessmentHours, setAssessmentHours,
   developmentHours, setDevelopmentHours,
   hoursSplit, setHoursSplit,
-  erpConsultant, setErpConsultant
+  erpConsultant, setErpConsultant,
+  includePmHours, setIncludePmHours
 }) {
-
   useEffect(() => {
     // Reset hours when hoursSplit changes
     if (hoursSplit === "Assessment") {
@@ -285,6 +325,15 @@ function DataInputForm({
                 disabled={hoursSplit !== "Development" && hoursSplit !== "Both"} />
             </td>
           </tr>
+          <tr>
+            {/* Include PM hours Checkbox */}
+            <td align="left">
+              <label>
+                <input type="checkbox" checked={includePmHours} onChange={(e) => setIncludePmHours(e.target.checked)} />
+                Include PM hours
+              </label>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -306,6 +355,8 @@ function DataInputForm({
  * - erpConsultant: ERP consultant name
  * - assessmentTotal: Total percentage for assessment tasks
  * - developmentTotal: Total percentage for development tasks
+ * - includePmHours: Boolean indicating whether to include project management hours
+ * - pmPct: Percentage for project management hours
  * 
  * @returns JSX.Element
  */
@@ -321,7 +372,9 @@ function TasklistPreview({
   hoursSplit,
   erpConsultant,
   assessmentTotal,
-  developmentTotal
+  developmentTotal,
+  includePmHours,
+  pmPct
 }) {
   const [assessmentTasks, setAssessmentTasks] = useState([]); // State for assessment tasks
   const [developmentTasks, setDevelopmentTasks] = useState([]); // State for development tasks
@@ -439,6 +492,47 @@ function TasklistPreview({
     }
   }, [templateData, hoursSplit, clientName, intgNumber, intgName, erpSystem, directionality, developmentHours, erpConsultant]);
 
+  useEffect(() => {
+    if (includePmHours) {
+      if (hoursSplit === "Assessment" || hoursSplit === "Both") {
+        const PmLine = {
+          "section": "",
+          "rr": "RR request number to be added by PM",
+          "product_name": assessmentTasks[0]?.product_name || "Ethos Integration Project Management",
+          "role": "Project Manager",
+          "milestone": "Design",
+          "region": "US-NA",
+          "skills": "Project Management",
+          "assignment_tasks": "Ethos Integration Project Management",
+          "hours_per_role_per_milestone": `${pmPct * 100}%`,
+          "duration": "60 days",
+          "hours": Math.ceil(assessmentHours * pmPct)
+        };
+        setAssessmentTasks(prev => [...prev.filter(task => task.role !== "Project Manager"), PmLine]);
+      }
+      if (hoursSplit === "Development" || hoursSplit === "Both") {
+        const PmLine = {
+          "section": "",
+          "rr": "RR request number to be added by PM",
+          "product_name": developmentTasks[0]?.product_name || "Ethos Integration Project Management",
+          "role": "Project Manager",
+          "milestone": "Design",
+          "region": "US-NA",
+          "skills": "Project Management",
+          "assignment_tasks": "Ethos Integration Project Management",
+          "hours_per_role_per_milestone": `${pmPct * 100}%`,
+          "duration": "60 days",
+          "hours": Math.ceil(developmentHours * pmPct)
+        };
+        setDevelopmentTasks(prev => [...prev.filter(task => task.role !== "Project Manager"), PmLine]);
+      }
+    }
+    else if (!includePmHours) {
+      setAssessmentTasks(prev => prev.filter(task => task.role !== "Project Manager"));
+      setDevelopmentTasks(prev => prev.filter(task => task.role !== "Project Manager"));
+    }
+  }, [includePmHours, hoursSplit, developmentTasks, assessmentTasks]);
+
   // Function to generate HTML table for tasks
   function generateTable(tasks) {
     // Handle case with no tasks
@@ -513,9 +607,11 @@ function TasklistPreview({
             intgNumber === "" ||
             intgName === "" ||
             erpSystem === "" ||
+            erpConsultant === "" ||
             (hoursSplit === "Assessment" && assessmentTotal != 1.00 && assessmentHours <= 0) ||
             (hoursSplit === "Development" && developmentTotal != 1.00 && developmentHours <= 0) ||
-            (hoursSplit === "Both" && (assessmentTotal != 1.00 || developmentTotal != 1.00) && (assessmentHours <= 0 || developmentHours <= 0))
+            (hoursSplit === "Both" && (assessmentTotal != 1.00 || developmentTotal != 1.00) && (assessmentHours <= 0 || developmentHours <= 0)) ||
+            (includePmHours && (pmPct <= 0 || pmPct > 1))
           }>
           Export to Excel
         </button>
@@ -527,6 +623,9 @@ function TasklistPreview({
         )}
         {((hoursSplit === "Development" || hoursSplit === "Both") && developmentTotal !== 1.00) && (
           <div className="validationMessage">Development total must equal 100%</div>
+        )}
+        {(includePmHours && (pmPct <= 0 || pmPct > 1)) && (
+          <div className="validationMessage">Project Management percentage must be greater than 0 and less than or equal to 1</div>
         )}
       </div>
 
@@ -566,6 +665,8 @@ function App() {
   const [erpConsultant, setErpConsultant] = useState("");
   const [assessmentTotal, setAssessmentTotal] = useState(0);
   const [developmentTotal, setDevelopmentTotal] = useState(0);
+  const [includePmHours, setIncludePmHours] = useState(false);
+  const [pmPct, setPmPct] = useState(0.26);
 
   // Load template JSON data on component mount
   useEffect(() => {
@@ -595,6 +696,7 @@ function App() {
           setTemplateData={setTemplateData}
           assessmentTotal={assessmentTotal} setAssessmentTotal={setAssessmentTotal}
           developmentTotal={developmentTotal} setDevelopmentTotal={setDevelopmentTotal}
+          includePmHours={includePmHours} pmPct={pmPct} setPmPct={setPmPct}
           hoursSplit={hoursSplit}
         />
         {/* Data Input Form Component */}
@@ -608,6 +710,7 @@ function App() {
           developmentHours={developmentHours} setDevelopmentHours={setDevelopmentHours}
           hoursSplit={hoursSplit} setHoursSplit={setHoursSplit}
           erpConsultant={erpConsultant} setErpConsultant={setErpConsultant}
+          includePmHours={includePmHours} setIncludePmHours={setIncludePmHours}
         />
       </div>
       {/* Tasklist Preview Component */}
@@ -624,6 +727,8 @@ function App() {
         erpConsultant={erpConsultant}
         assessmentTotal={assessmentTotal}
         developmentTotal={developmentTotal}
+        includePmHours={includePmHours}
+        pmPct={pmPct}
       />
     </main>
   );
